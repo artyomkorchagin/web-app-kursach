@@ -23,14 +23,13 @@ func (r *UserRepository) GetUser(ctx context.Context, username, password string)
 
 func (r *UserRepository) AddUser(ctx context.Context, user *types.User) error {
 	query := `
-		INSERT INTO users (id, name, email, created_at)
-		VALUES (@p1, @p2, @p3, @p4)`
+		INSERT INTO Users (name, email, password)
+		VALUES (@p1, @p2, @p3)`
 
 	_, err := r.db.ExecContext(ctx, query,
-		user.ID,
 		user.Name,
 		user.Email,
-		user.CreatedAt,
+		user.Password,
 	)
 	return err
 }

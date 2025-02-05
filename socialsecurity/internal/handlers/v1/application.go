@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (h *Handler) applicationFormRender(c *gin.Context) {
+func (h *Handler) renderApplicationForm(c *gin.Context) {
 	c.HTML(http.StatusOK, "applicationForm.html", nil)
 }
 

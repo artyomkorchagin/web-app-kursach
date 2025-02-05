@@ -40,6 +40,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		main.GET("/about", h.renderAbout)
 		main.GET("/sign-in-page", h.renderSignIn)
 		main.GET("/sign-up-page", h.renderSignUp)
+		main.GET("/application-form", h.renderApplicationForm)
 	}
 
 	auth := router.Group("/auth")
@@ -50,7 +51,6 @@ func (h *Handler) InitRoutes() *gin.Engine {
 
 	apiv1 := router.Group("/api/v1")
 	{
-		apiv1.GET("/application-form", h.applicationFormRender)
 		apiv1.POST("/application-form", h.applicationApply)
 	}
 

@@ -6,7 +6,7 @@ database:
   host: "localhost"
   port: 5432
   name: "social_security_db"
-  user: "postgres"
+  user: "DESKTOP-TD3P5T5\Grisha"
   password: "your_password"
   sslmode: "disable"
   max_open_conns: 20

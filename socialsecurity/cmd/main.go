@@ -5,7 +5,6 @@ import (
 	"log"
 	"socialsecurity/internal/app/application"
 	"socialsecurity/internal/app/user"
-	"socialsecurity/internal/config"
 	v1 "socialsecurity/internal/handlers/v1"
 	mssqlApplication "socialsecurity/internal/mssql/application"
 	mssqlUser "socialsecurity/internal/mssql/user"
@@ -15,15 +14,20 @@ import (
 
 func main() {
 
-	cfg, err := config.Load("../config/config.yaml")
+	// cfg, err := config.Load("../config/config.yaml")
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+
+	db, err := sql.Open("mssql", "server=localhost;user id=test;password=123456789;database=test;")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	db, err := sql.Open("mssql", cfg.GetDSN())
-	if err != nil {
+	if err := db.Ping(); err != nil {
 		log.Fatal(err)
 	}
+	log.Println("Successfully connected to the database!")
 
 	// ctx, cancel := context.WithCancel(context.Background())
 
