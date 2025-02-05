@@ -24,7 +24,7 @@ func (r *UserRepository) GetUser(ctx context.Context, username, password string)
 func (r *UserRepository) AddUser(ctx context.Context, user *types.User) error {
 	query := `
 		INSERT INTO Users (name, email, password)
-		VALUES (@p1, @p2, @p3)`
+		VALUES (?, ?, ?)`
 
 	_, err := r.db.ExecContext(ctx, query,
 		user.Name,

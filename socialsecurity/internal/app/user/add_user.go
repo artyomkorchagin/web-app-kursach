@@ -5,10 +5,10 @@ import (
 	"socialsecurity/internal/types"
 )
 
-func (s *Service) AddUser(ctx context.Context, req types.CreateUserRequest) (types.User, error) {
+func (s *Service) AddUser(ctx context.Context, req types.CreateUserRequest) error {
 	hashpass, err := HashPassword(req.Password)
 	if err != nil {
-		return types.User{}, err
+		return err
 	}
 	user := types.User{
 		Name:     req.Name,
@@ -17,8 +17,8 @@ func (s *Service) AddUser(ctx context.Context, req types.CreateUserRequest) (typ
 	}
 
 	if err := s.repo.AddUser(ctx, &user); err != nil {
-		return types.User{}, err
+		return err
 	}
 
-	return user, nil
+	return nil
 }

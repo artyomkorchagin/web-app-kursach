@@ -5,20 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
     <link rel="stylesheet" href="/static/css/styles.css">
-    <!-- Include HTMX library -->
-    <script src="https://unpkg.com/htmx.org"></script>
 </head>
 <body>
     <div class="container">
         <h1>Sign Up</h1>
-        <form 
-            hx-post="/auth/sign-up" 
-            hx-headers='{"Content-Type": "application/json"}' 
-            hx-trigger="submit" 
-            hx-include="[name=name],[name=email],[name=password]"
-            hx-vals="json:{}"
-            hx-target="#response"
-        >
+        <form action="/auth/sign-up" method="post">
             <label for="name">Username:</label>
             <input type="text" id="name" name="name" required><br><br>
             
@@ -30,9 +21,6 @@
             
             <button type="submit">Sign Up</button>
         </form>
-
-        <!-- Response area -->
-        <div id="response"></div>
 
         <p><a href="/sign-in-page">Already have an account? Sign in here.</a></p>
     </div>
