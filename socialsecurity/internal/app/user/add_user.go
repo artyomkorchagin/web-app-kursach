@@ -10,13 +10,10 @@ func (s *Service) AddUser(ctx context.Context, req types.CreateUserRequest) erro
 	if err != nil {
 		return err
 	}
-	user := types.User{
-		Name:     req.Name,
-		Email:    req.Email,
-		Password: hashpass,
-	}
+	req.Password = hashpass
+	user := types.NewUser(req)
 
-	if err := s.repo.AddUser(ctx, &user); err != nil {
+	if err := s.repo.AddUser(ctx, user); err != nil {
 		return err
 	}
 

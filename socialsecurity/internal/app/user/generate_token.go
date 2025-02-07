@@ -32,7 +32,7 @@ func (s *Service) GenerateToken(ctx context.Context, username, password string) 
 			ExpiresAt: time.Now().Add(tokenTTL).Unix(),
 			IssuedAt:  time.Now().Unix(),
 		},
-		user.ID,
+		user.UserID,
 	})
 
 	return token.SignedString([]byte(signingKey))
