@@ -17,12 +17,9 @@ const (
 	tokenTTL   = 12 * time.Hour
 )
 
-func (s *Service) GenerateToken(ctx context.Context, username, password string) (string, error) {
-	hashedpass, err := HashPassword(password)
-	if err != nil {
-		return "", err
-	}
-	user, err := s.repo.GetUser(ctx, username, hashedpass)
+func (s *Service) GenerateToken(ctx context.Context, email, password string) (string, error) {
+
+	user, err := s.repo.GetUser(ctx, email)
 	if err != nil {
 		return "", err
 	}

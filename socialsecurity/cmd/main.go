@@ -19,7 +19,7 @@ func main() {
 	// 	log.Fatal(err)
 	// }
 
-	db, err := sql.Open("mssql", "server=localhost;user id=test;password=123456789;database=test;")
+	db, err := sql.Open("mssql", "server=localhost;user id=admin;database=social;password=123412341234")
 	if err != nil {
 		log.Fatal(err)
 	}

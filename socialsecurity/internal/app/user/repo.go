@@ -6,7 +6,7 @@ import (
 )
 
 type Reader interface {
-	GetUser(ctx context.Context, username, password string) (*types.User, error)
+	GetUser(ctx context.Context, username string) (*types.User, error)
 }
 
 type Writer interface {

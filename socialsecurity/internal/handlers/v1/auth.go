@@ -2,6 +2,7 @@ package v1
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 	"socialsecurity/internal/types"
 
@@ -9,39 +10,40 @@ import (
 )
 
 type signInInput struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
+	Email    string `form:"email"`
+	Password string `form:"password"`
 }
 
 func (h *Handler) signUp(c *gin.Context) {
 	var input types.CreateUserRequest
 
 	if err := c.ShouldBind(&input); err != nil {
+		fmt.Println(err)
 		c.AbortWithError(http.StatusBadRequest, errors.New("invalid input body"))
 		return
 	}
 
 	err := h.services.user.AddUser(c, input)
 	if err != nil {
+		fmt.Println(err)
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
 
-	c.JSON(http.StatusOK, map[string]interface{}{
-		"message": "Sign up successful!",
-	})
+	c.Redirect(http.StatusOK, "/")
 }
 
 func (h *Handler) signIn(c *gin.Context) {
 	var input signInInput
 
-	if err := c.BindJSON(&input); err != nil {
+	if err := c.ShouldBind(&input); err != nil {
 		c.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
-
-	token, err := h.services.user.GenerateToken(c, input.Username, input.Password)
+	fmt.Println(input)
+	token, err := h.services.user.GenerateToken(c, input.Email, input.Password)
 	if err != nil {
+		fmt.Println(err)
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
