@@ -15,9 +15,21 @@ func (h *Handler) renderSignUp(c *gin.Context) {
 }
 
 func (h *Handler) renderMain(c *gin.Context) {
-	c.HTML(http.StatusOK, "index.html", nil)
+	c.HTML(http.StatusOK, "index.html", gin.H{
+		"applications": h.applications,
+		"LoggedIn":     h.loggedInUser.UserID != "",
+		"Username":     h.loggedInUser.FirstName,
+	})
 }
 
 func (h *Handler) renderAbout(c *gin.Context) {
 	c.HTML(http.StatusOK, "about.html", nil)
+}
+
+func (h *Handler) renderProfile(c *gin.Context) {
+	c.HTML(http.StatusOK, "profile.html", gin.H{
+		"applications": h.applications,
+		"LoggedIn":     h.loggedInUser.UserID != "",
+		"Username":     h.loggedInUser.FirstName,
+	})
 }

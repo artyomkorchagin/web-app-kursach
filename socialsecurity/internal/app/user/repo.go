@@ -11,6 +11,7 @@ type Reader interface {
 
 type Writer interface {
 	AddUser(ctx context.Context, a *types.User) error
+	UpdateUser(ctx context.Context, u *types.User) error
 }
 
 type ReadWriter interface {

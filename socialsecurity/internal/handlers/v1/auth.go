@@ -48,7 +48,7 @@ func (h *Handler) signIn(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, map[string]interface{}{
-		"token": token,
-	})
+	c.SetCookie("token", token, 3600, "/", "localhost", false, true)
+
+	c.Redirect(http.StatusSeeOther, "/")
 }

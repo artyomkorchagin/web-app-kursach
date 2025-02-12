@@ -12,7 +12,7 @@ func (h *Handler) renderApplicationForm(c *gin.Context) {
 	c.HTML(http.StatusOK, "applicationForm.html", nil)
 }
 
-func (h *Handler) applicationApply(c *gin.Context) {
+func (h *Handler) createApplication(c *gin.Context) {
 	req := types.CreateApplicationRequest{}
 	application, err := h.services.application.CreateApplication(c, req)
 	if err != nil {

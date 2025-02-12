@@ -3,6 +3,8 @@ package v1
 import (
 	"socialsecurity/internal/app/application"
 	"socialsecurity/internal/app/user"
+	"socialsecurity/internal/middleware"
+	"socialsecurity/internal/types"
 
 	"github.com/gin-gonic/gin"
 )
@@ -13,7 +15,9 @@ type AllServices struct {
 }
 
 type Handler struct {
-	services AllServices
+	services     AllServices
+	applications []types.Application
+	loggedInUser types.User
 }
 
 func NewAllSercivces(u *user.Service, a *application.Service) AllServices {
@@ -50,8 +54,11 @@ func (h *Handler) InitRoutes() *gin.Engine {
 	}
 
 	apiv1 := router.Group("/api/v1")
+	apiv1.Use(middleware.AuthMiddleware())
 	{
-		apiv1.POST("/application-form", h.applicationApply)
+		apiv1.GET("/profile", h.renderProfile)
+		apiv1.PATCH("/update-profile", h.updateProfile)
+		apiv1.POST("/application-form", h.createApplication)
 	}
 
 	return router

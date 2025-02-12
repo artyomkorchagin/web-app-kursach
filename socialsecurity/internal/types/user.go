@@ -20,21 +20,21 @@ type User struct {
 }
 
 type CreateUserRequest struct {
-	FirstName         string `form:"first_name" binding:"required"`
-	SecondName        string `form:"second_name" binding:"required"`
+	FirstName         string `form:"first_name"`
+	SecondName        string `form:"second_name"`
 	MiddleName        string `form:"middle_name"`
-	DateOfBirth       string `form:"date_of_birth" binding:"required"`
-	Gender            string `form:"gender" binding:"required"`
+	DateOfBirth       string `form:"date_of_birth"`
+	Gender            string `form:"gender"`
 	Address           string `form:"address"`
-	PhoneNumber       string `form:"phone_number" binding:"required"`
-	Email             string `form:"email" binding:"required"`
-	Password          string `form:"password" binding:"required"`
-	SNILS             string `form:"snils" binding:"omitempty"`
-	PassportSeries    string `form:"passport_series" binding:"omitempty"`
-	PassportNumber    string `form:"passport_number" binding:"omitempty"`
-	PassportIssuedBy  string `form:"passport_issued_by" binding:"omitempty"`
-	PassportIssueDate string `form:"passport_issue_date" binding:"omitempty"`
-	Role              string `form:"role" binding:"omitempty"`
+	PhoneNumber       string `form:"phone_number"`
+	Email             string `form:"email"`
+	Password          string `form:"password"`
+	SNILS             string `form:"snils"`
+	PassportSeries    string `form:"passport_series"`
+	PassportNumber    string `form:"passport_number"`
+	PassportIssuedBy  string `form:"passport_issued_by"`
+	PassportIssueDate string `form:"passport_issue_date"`
+	Role              string `form:"role"`
 }
 
 func NewUser(req CreateUserRequest) *User {

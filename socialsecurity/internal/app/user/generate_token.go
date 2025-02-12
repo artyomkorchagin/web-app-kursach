@@ -7,11 +7,6 @@ import (
 	"github.com/golang-jwt/jwt"
 )
 
-type tokenClaims struct {
-	jwt.StandardClaims
-	UserId string `json:"user_id"`
-}
-
 const (
 	signingKey = "qrkj#%@FNSAzpZ!@M<24FjH" // i need to change it to secret
 	tokenTTL   = 12 * time.Hour
@@ -24,12 +19,12 @@ func (s *Service) GenerateToken(ctx context.Context, email, password string) (st
 		return "", err
 	}
 
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, &tokenClaims{
-		jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(tokenTTL).Unix(),
-			IssuedAt:  time.Now().Unix(),
-		},
-		user.UserID,
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
+		Subject:   user.UserID,
+		Issuer:    "kursach-app",
+		Audience:  user.Role,
+		ExpiresAt: time.Now().Add(tokenTTL).Unix(),
+		IssuedAt:  time.Now().Unix(),
 	})
 
 	return token.SignedString([]byte(signingKey))
