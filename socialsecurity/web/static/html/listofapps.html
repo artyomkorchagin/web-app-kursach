@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои Заявки</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f9f9fb;
+        }
+
+        .applications-container {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+            color: #555555;
+        }
+
+        tr:hover {
+            background-color: #f9f9fb;
+        }
+
+        button {
+            padding: 8px 12px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="applications-container">
+        <h2>Мои Заявки</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Заявки</th>
+                    <th>Пособие</th>
+                    <th>Услуга</th>
+                    <th>Статус</th>
+                    <th>Доп. Информация</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Mock Row 1 -->
+                <tr>
+                    <td>#1001</td>
+                    <td>Пособие на ребенка</td>
+                    <td>Консультация юриста</td>
+                    <td>В обработке</td>
+                    <td>Нужна помощь с документами.</td>
+                    <td>
+                        <button>Редактировать</button>
+                        <button style="background-color: #FF5733;">Удалить</button>
+                    </td>
+                </tr>
+                <!-- Mock Row 2 -->
+                <tr>
+                    <td>#1002</td>
+                    <td>Социальное пособие</td>
+                    <td>Медицинское обслуживание</td>
+                    <td>Одобрено</td>
+                    <td>Требуется срочная медицинская помощь.</td>
+                    <td>
+                        <button>Редактировать</button>
+                        <button style="background-color: #FF5733;">Удалить</button>
+                    </td>
+                </tr>
+                <!-- Mock Row 3 -->
+                <tr>
+                    <td>#1003</td>
+                    <td>Пенсионное пособие</td>
+                    <td>Образовательные курсы</td>
+                    <td>Отклонено</td>
+                    <td>Необходимы дополнительные документы.</td>
+                    <td>
+                        <button>Редактировать</button>
+                        <button style="background-color: #FF5733;">Удалить</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
