@@ -1,6 +1,7 @@
 package v1
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -15,11 +16,10 @@ func (h *Handler) renderSignUp(c *gin.Context) {
 }
 
 func (h *Handler) renderMain(c *gin.Context) {
-	c.HTML(http.StatusOK, "index.html", gin.H{
-		"applications": h.applications,
-		"LoggedIn":     h.loggedInUser.UserID != "",
-		"Username":     h.loggedInUser.FirstName,
-	})
+	if h.loggedInUser.UserID != "" {
+		c.Redirect(http.StatusSeeOther, "/api/v1/menu")
+	}
+	c.HTML(http.StatusOK, "index.html", nil)
 }
 
 func (h *Handler) renderAbout(c *gin.Context) {
@@ -27,9 +27,28 @@ func (h *Handler) renderAbout(c *gin.Context) {
 }
 
 func (h *Handler) renderProfile(c *gin.Context) {
+	email := c.Request.Context().Value("email").(string)
+	role := c.Request.Context().Value("role").(string)
+
+	user, err := h.services.user.GetUserByEmail(c, email)
+	if err != nil {
+		c.AbortWithStatus(http.StatusInternalServerError)
+		return
+	}
+
+	fmt.Println(email, role, user)
 	c.HTML(http.StatusOK, "profile.html", gin.H{
-		"applications": h.applications,
-		"LoggedIn":     h.loggedInUser.UserID != "",
-		"Username":     h.loggedInUser.FirstName,
+		"LoggedIn": email != "",
+		"Role":     role,
+		"User":     user,
+	})
+}
+
+func (h *Handler) renderMenu(c *gin.Context) {
+	email := c.Request.Context().Value("email").(string)
+	role := c.Request.Context().Value("role").(string)
+	c.HTML(http.StatusOK, "userpanel.html", gin.H{
+		"LoggedIn": email != "",
+		"Role":     role,
 	})
 }

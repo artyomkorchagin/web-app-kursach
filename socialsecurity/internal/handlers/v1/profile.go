@@ -10,18 +10,22 @@ import (
 )
 
 func (h *Handler) updateProfile(c *gin.Context) {
-	var newUserData *types.User
-	newUserData.UserID = h.loggedInUser.UserID
+	var newUserData types.User
+
+	email := c.Request.Context().Value("email").(string)
+	fmt.Println("updating profile")
 	if err := c.ShouldBind(&newUserData); err != nil {
 		fmt.Println(err)
 		c.AbortWithError(http.StatusBadRequest, errors.New("invalid input body"))
 		return
 	}
 
-	if err := h.services.user.UpdateUser(c, newUserData); err != nil {
+	newUserData.Email = email
+	fmt.Println(newUserData)
+	if err := h.services.user.UpdateUser(c, &newUserData); err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
-
+	fmt.Println("done")
 	c.JSON(http.StatusOK, gin.H{"message": "success"})
 }

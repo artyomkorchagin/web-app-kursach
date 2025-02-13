@@ -53,11 +53,11 @@ func AuthMiddleware() gin.HandlerFunc {
 		}
 
 		// 4. Pass user information to the next handler
-		userID := claims.Subject
+		email := claims.Subject
 		role := claims.Audience
 
 		// Store user information in the context for downstream handlers
-		ctx := context.WithValue(c.Request.Context(), "userID", userID)
+		ctx := context.WithValue(c.Request.Context(), "email", email)
 		ctx = context.WithValue(ctx, "role", role)
 		c.Request = c.Request.WithContext(ctx)
 

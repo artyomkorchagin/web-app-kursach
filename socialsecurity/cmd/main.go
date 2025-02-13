@@ -53,14 +53,4 @@ func main() {
 	r := handler.InitRoutes()
 
 	r.Run(":3000")
-	// user, err := userService.AddUser(ctx, types.CreateUserRequest{
-	// 	Name:  "John Doe",
-	// 	Email: "john.doe@example.com",
-	// })
-
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-
-	// fmt.Println(user)
 }

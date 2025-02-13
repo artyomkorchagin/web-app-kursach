@@ -4,51 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f4f4f9;
-}
-
-.container {
-    text-align: center;
-    background: #ffffff;
-    padding: 20px 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-    color: #333333;
-}
-
-a {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #ffffff;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-a:hover {
-    background-color: #0056b3;
-}
-    </style>
+    <script src="https://unpkg.com/htmx.org"></script>
     <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
     <div class="container">
         <h1>User Profile</h1>
-        <form action="/api/v1/update-profile" method="post">
+        <form hx-patch="/api/v1/update-profile">
             <!-- First Name -->
             <label for="first_name">First Name:</label>
             <input type="text" id="first_name" name="first_name" value="{{ .User.FirstName }}" required><br><br>
@@ -61,38 +23,17 @@ a:hover {
             <label for="middle_name">Middle Name:</label>
             <input type="text" id="middle_name" name="middle_name" value="{{ .User.MiddleName }}"><br><br>
 
-            <!-- Date of Birth -->
-            <label for="date_of_birth">Date of Birth:</label>
-            <input type="date" id="date_of_birth" name="date_of_birth" value="{{ .User.DateOfBirth }}" required><br><br>
-
-            <!-- Gender -->
-            <label for="gender">Gender:</label>
-            <select id="gender" name="gender" required>
-                <option value="" disabled>Select your gender</option>
-                <option value="Male" {{ if eq .User.Gender "Male" }}selected{{ end }}>Male</option>
-                <option value="Female" {{ if eq .User.Gender "Female" }}selected{{ end }}>Female</option>
-            </select><br><br>
-
             <!-- Address (Optional) -->
             <label for="address">Address:</label>
             <input type="text" id="address" name="address" value="{{ .User.Address }}"><br><br>
 
             <!-- Phone Number -->
             <label for="phone_number">Phone Number:</label>
-            <input type="tel" id="phone_number" name="phone_number" value="{{ .User.PhoneNumber }}" required><br><br>
-
-            <!-- Email -->
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" value="{{ .User.Email }}" required><br><br>
-
-            <!-- Password (Optional - Leave blank if not changing) -->
-            <label for="password">Password (leave blank if not changing):</label>
-            <input type="password" id="password" name="password"><br><br>
+            <input type="text" id="phone_number" name="phone_number" value="{{ .User.PhoneNumber }}" required><br><br>
 
             <!-- Submit Button -->
             <button type="submit">Update Profile</button>
         </form>
-        <p><a href="/sign-in-page">Logout</a></p>
     </div>
 </body>
 </html>

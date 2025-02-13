@@ -2,6 +2,7 @@ package user
 
 import (
 	"context"
+	"errors"
 	"time"
 
 	"github.com/golang-jwt/jwt"
@@ -19,8 +20,12 @@ func (s *Service) GenerateToken(ctx context.Context, email, password string) (st
 		return "", err
 	}
 
+	if !VerifyPassword(password, user.PasswordHash) {
+		return "", errors.New("invalid password")
+	}
+
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
-		Subject:   user.UserID,
+		Subject:   user.Email,
 		Issuer:    "kursach-app",
 		Audience:  user.Role,
 		ExpiresAt: time.Now().Add(tokenTTL).Unix(),
