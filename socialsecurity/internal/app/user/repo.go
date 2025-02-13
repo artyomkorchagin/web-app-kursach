@@ -7,6 +7,7 @@ import (
 
 type Reader interface {
 	GetUser(ctx context.Context, email string) (*types.User, error)
+	GetAllUsers(ctx context.Context) ([]types.User, error)
 }
 
 type Writer interface {

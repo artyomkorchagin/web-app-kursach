@@ -58,7 +58,9 @@ func (h *Handler) InitRoutes() *gin.Engine {
 	{
 		apiv1.GET("/profile", h.renderProfile)
 		apiv1.PATCH("/update-profile", h.updateProfile)
-		apiv1.POST("/application-form", h.createApplication)
+		apiv1.GET("/application-form", h.renderApplicationForm)
+		apiv1.POST("/application-apply", h.createApplication)
+		apiv1.GET("/users", h.renderUsers)
 		apiv1.GET("/menu", h.renderMenu)
 		apiv1.POST("/sign-out", h.signOut)
 	}

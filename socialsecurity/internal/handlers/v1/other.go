@@ -52,3 +52,16 @@ func (h *Handler) renderMenu(c *gin.Context) {
 		"Role":     role,
 	})
 }
+
+func (h *Handler) renderUsers(c *gin.Context) {
+
+	users, err := h.services.user.GetAllUsers(c)
+	if err != nil {
+		fmt.Println("error with users", err)
+		c.AbortWithStatus(http.StatusInternalServerError)
+		return
+	}
+	c.HTML(http.StatusOK, "users.html", gin.H{
+		"Users": users,
+	})
+}

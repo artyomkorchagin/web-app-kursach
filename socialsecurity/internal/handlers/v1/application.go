@@ -1,6 +1,7 @@
 package v1
 
 import (
+	"fmt"
 	"net/http"
 
 	"socialsecurity/internal/types"
@@ -9,7 +10,21 @@ import (
 )
 
 func (h *Handler) renderApplicationForm(c *gin.Context) {
-	c.HTML(http.StatusOK, "applicationForm.html", nil)
+	benefits, err := h.services.application.GetBenefits(c)
+	if err != nil {
+		fmt.Println("error with benefits", err)
+		c.AbortWithError(http.StatusInternalServerError, err)
+	}
+
+	services, err := h.services.application.GetServices(c)
+	if err != nil {
+		fmt.Println("error with services", err)
+		c.AbortWithError(http.StatusInternalServerError, err)
+	}
+	c.HTML(http.StatusOK, "application.html", gin.H{
+		"Services": services,
+		"Benefits": benefits,
+	})
 }
 
 func (h *Handler) createApplication(c *gin.Context) {

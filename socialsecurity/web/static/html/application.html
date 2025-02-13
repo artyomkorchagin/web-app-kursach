@@ -3,22 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us</title>
+    <title>Отправить Заявку</title>
     <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
     <div class="application-container">
         <h2>Отправить Заявку</h2>
-        <form action="/api/send-application" method="POST">
+        <form action="/api/v1/send-application" method="POST">
             <!-- Benefit Selection -->
             <div class="form-group">
                 <label for="benefit_id">Пособие:</label>
                 <select id="benefit_id" name="benefit_id" required>
                     <option value="" disabled selected>-- Выберите пособие --</option>
-                    <!-- Example benefits (static data) -->
-                    <option value="1">Пособие на ребенка</option>
-                    <option value="2">Социальное пособие</option>
-                    <option value="3">Пенсионное пособие</option>
+                    <!-- Dynamically generate benefit options -->
+                    {{ if .Benefits }}
+                        {{ range .Benefits }}
+                            <option value="{{ .BenefitID }}">{{ .Name }}</option>
+                        {{ end }}
+                    {{ else }}
+                        <option value="" disabled>Нет доступных пособий</option>
+                    {{ end }}
                 </select>
             </div>
 
@@ -27,10 +31,14 @@
                 <label for="service_id">Услуга:</label>
                 <select id="service_id" name="service_id" required>
                     <option value="" disabled selected>-- Выберите услугу --</option>
-                    <!-- Example services (static data) -->
-                    <option value="1">Консультация юриста</option>
-                    <option value="2">Медицинское обслуживание</option>
-                    <option value="3">Образовательные курсы</option>
+                    <!-- Dynamically generate service options -->
+                    {{ if .Services }}
+                        {{ range .Services }}
+                            <option value="{{ .ServiceID }}">{{ .Name }}</option>
+                        {{ end }}
+                    {{ else }}
+                        <option value="" disabled>Нет доступных услуг</option>
+                    {{ end }}
                 </select>
             </div>
 
@@ -45,3 +53,4 @@
         </form>
     </div>
 </body>
+</html>
