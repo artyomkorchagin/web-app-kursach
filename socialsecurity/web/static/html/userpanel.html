@@ -17,13 +17,13 @@
         <button onclick="window.location.href='/api/v1/apply-application'">Apply Application</button>
         <button onclick="window.location.href='/api/v1/view-applications'">View Applications</button>
         <button onclick="window.location.href='/api/v1/profile'">Profile</button>
-        <button hx-post="/api/v1/sign-out" onclick="window.location.href='/'" hx->Logout</button>
+        <button hx-post="/api/v1/sign-out" onclick="window.location.href='/'">Logout</button>
     {{ else if eq .Role "employee" }}
         <h2>Employee Panel</h2>
         <button>Review Applications</button>
         <button>Users</button>
         <button onclick="window.location.href='/api/v1/profile'">Profile</button>
-        <button onclick="window.location.href='/api/v1/sign-out'">Logout</button>
+        <button hx-post="/api/v1/sign-out" onclick="window.location.href='/'">Logout</button>
     {{ else }}
         <p>Invalid Role</p>
     {{ end }}
