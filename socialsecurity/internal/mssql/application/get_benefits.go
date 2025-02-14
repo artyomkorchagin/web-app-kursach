@@ -11,10 +11,11 @@ func (r *ApplicationRepository) GetBenefits(ctx context.Context) ([]types.Benefi
 	query := `
         SELECT 
             benefit_id, 
-            name, 
+            benefit_name, 
             description, 
-            amount 
-        FROM benefits`
+            amount,
+			frequency
+        FROM benefit`
 
 	// Create a slice to store the benefits
 	var benefits []types.Benefit

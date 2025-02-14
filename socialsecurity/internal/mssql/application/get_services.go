@@ -11,10 +11,10 @@ func (r *ApplicationRepository) GetServices(ctx context.Context) ([]types.Servic
 	query := `
         SELECT 
             service_id, 
-            name, 
+            service_name, 
             description, 
             provider 
-        FROM services`
+        FROM service`
 
 	// Create a slice to store the services
 	var services []types.Service

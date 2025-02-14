@@ -1,8 +1,9 @@
 package types
 
 type Benefit struct {
-	BenefitID   string `json:"user_id"`
-	Name        string `json:"name"`
-	Description int    `json:"description"`
+	BenefitID   string `json:"benefit_id"`
+	Name        string `json:"benefit_name"`
+	Description string `json:"description"`
 	Amount      int    `json:"provider"`
+	Freqquency  int    `json:"frequency"`
 }
