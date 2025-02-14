@@ -5,5 +5,5 @@ type Benefit struct {
 	Name        string `json:"benefit_name"`
 	Description string `json:"description"`
 	Amount      int    `json:"provider"`
-	Freqquency  int    `json:"frequency"`
+	Frequency   int    `json:"frequency"`
 }

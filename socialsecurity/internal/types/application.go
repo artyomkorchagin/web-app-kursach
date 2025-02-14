@@ -1,21 +1,22 @@
 package types
 
-import "time"
-
 type Application struct {
-	ID          string    `json:"id"`
-	UserID      string    `json:"user_id"`
-	Description string    `json:"description"`
-	Status      string    `json:"status"`
-	Type        string    `json:"type"`
-	CreatedAt   time.Time `json:"created_at"`
-	UpdatedAt   time.Time `json:"updated_at"`
+	ID              string `json:"application_id"`
+	UserID          string `json:"user_id"`
+	BenefitID       string `json:"benefit_id"`
+	ServiceID       string `json:"service_id"`
+	Date            string `json:"application_date"`
+	Status          string `json:"status"`
+	ApprovalDate    string `json:"approval_date"`
+	RejectionReason string `json:"rejection_reason"`
+	Description     string `json:"description"`
 }
 
 type CreateApplicationRequest struct {
 	UserID      string `json:"user_id"`
+	BenefitID   string `json:"benefit_id"`
+	ServiceID   string `json:"service_id"`
 	Description string `json:"description"`
-	Type        string `json:"type"`
 }
 
 type UpdateApplicationStatusRequest struct {
@@ -24,7 +25,8 @@ type UpdateApplicationStatusRequest struct {
 
 type EditApplicatonRequest struct {
 	Description string `json:"description"`
-	Type        string `json:"type"`
+	BenefitID   string `json:"benefit_id"`
+	ServiceID   string `json:"service_id"`
 }
 
 const (
