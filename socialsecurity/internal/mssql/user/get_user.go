@@ -12,22 +12,7 @@ func (r *UserRepository) GetUser(ctx context.Context, email string) (*types.User
 	// Query the database to fetch the user by email and hashed password
 	query := `
         SELECT 
-            [user_id],
-            [first_name],
-            [second_name],
-            [middle_name],
-            [date_of_birth],
-            [gender],
-            [address],
-            [phone_number],
-            [email],
-            [password_hash],
-            [snils],
-            [passport_series],
-            [passport_number],
-            [passport_issued_by],
-            [passport_issue_date],
-            [role]
+            *
         FROM [dbo].[Users]
         WHERE [email] = ?
     `

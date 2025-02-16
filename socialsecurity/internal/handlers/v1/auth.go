@@ -30,7 +30,7 @@ func (h *Handler) signUp(c *gin.Context) {
 		return
 	}
 
-	c.Redirect(http.StatusOK, "/")
+	c.Redirect(http.StatusSeeOther, "/")
 }
 
 func (h *Handler) signIn(c *gin.Context) {

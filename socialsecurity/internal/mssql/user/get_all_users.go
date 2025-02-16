@@ -10,12 +10,8 @@ func (r *UserRepository) GetAllUsers(ctx context.Context) ([]types.User, error) 
 	// Define the SQL query
 	query := `
         SELECT 
-            id, 
-            first_name, 
-            last_name, 
-            email, 
-            role 
-        FROM users`
+            *
+        FROM Users`
 
 	// Create a slice to store the users
 	var users []types.User

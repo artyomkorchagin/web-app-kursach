@@ -10,7 +10,7 @@ import (
 )
 
 func (h *Handler) updateProfile(c *gin.Context) {
-	var newUserData types.User
+	var newUserData types.CreateUserRequest
 
 	email := c.Request.Context().Value("email").(string)
 	fmt.Println("updating profile")
@@ -22,7 +22,9 @@ func (h *Handler) updateProfile(c *gin.Context) {
 
 	newUserData.Email = email
 	fmt.Println(newUserData)
-	if err := h.services.user.UpdateUser(c, &newUserData); err != nil {
+	user := types.NewUser(newUserData)
+	if err := h.services.user.UpdateUser(c, user); err != nil {
+		fmt.Println(err)
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}

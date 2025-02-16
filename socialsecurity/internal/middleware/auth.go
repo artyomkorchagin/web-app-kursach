@@ -21,7 +21,7 @@ func AuthMiddleware() gin.HandlerFunc {
 		tokenString, err := c.Cookie(tokenName)
 		if err != nil {
 			if errors.Is(err, http.ErrNoCookie) {
-				c.JSON(http.StatusUnauthorized, gin.H{"error": "Token cookie not found"})
+				c.Redirect(http.StatusSeeOther, "/")
 			} else {
 				c.JSON(http.StatusInternalServerError, gin.H{"error": "Error reading cookie"})
 			}
@@ -39,7 +39,7 @@ func AuthMiddleware() gin.HandlerFunc {
 		})
 
 		if err != nil || !token.Valid {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid or expired token"})
+			c.Redirect(http.StatusSeeOther, "/")
 			c.Abort()
 			return
 		}
@@ -47,7 +47,7 @@ func AuthMiddleware() gin.HandlerFunc {
 		// 3. Extract claims from the token
 		claims, ok := token.Claims.(*jwt.StandardClaims)
 		if !ok {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Invalid token claims"})
+			c.Redirect(http.StatusSeeOther, "/")
 			c.Abort()
 			return
 		}
