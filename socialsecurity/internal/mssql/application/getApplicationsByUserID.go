@@ -4,10 +4,13 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	utils "socialsecurity/internal/mssql"
 	"socialsecurity/internal/types"
+
+	"github.com/google/uuid"
 )
 
-func (r *ApplicationRepository) GetApplicationsByUserID(ctx context.Context, userID string) ([]*types.Application, error) {
+func (r *ApplicationRepository) GetApplicationsByUserID(ctx context.Context, userID uuid.UUID) ([]*types.Application, error) {
 	// Define the SQL query
 	query := `
         SELECT 
@@ -64,9 +67,35 @@ func (r *ApplicationRepository) GetApplicationsByUserID(ctx context.Context, use
 			application.RejectionReason = rejectionReason.String
 		}
 
+		newUUID := utils.ReverseUUID(application.ID.String())
+		application.ID, err = uuid.Parse(newUUID)
+		if err != nil {
+			fmt.Println(err)
+			return nil, err
+		}
+		newUUID = utils.ReverseUUID(application.UserID.String())
+		application.UserID, err = uuid.Parse(newUUID)
+		if err != nil {
+			fmt.Println(err)
+			return nil, err
+		}
+		newUUID = utils.ReverseUUID(application.BenefitID.String())
+		*application.BenefitID, err = uuid.Parse(newUUID)
+		if err != nil {
+			fmt.Println(err)
+			return nil, err
+		}
+		newUUID = utils.ReverseUUID(application.ServiceID.String())
+		*application.ServiceID, err = uuid.Parse(newUUID)
+		if err != nil {
+			fmt.Println(err)
+			return nil, err
+		}
+
 		// Append the application to the slice
 		applications = append(applications, &application)
 	}
+	fmt.Println(applications)
 
 	// Check for errors during iteration
 	if err := rows.Err(); err != nil {

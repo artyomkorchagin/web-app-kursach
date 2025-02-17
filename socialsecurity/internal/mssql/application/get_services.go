@@ -3,7 +3,10 @@ package mssqlApplication
 import (
 	"context"
 	"fmt"
+	utils "socialsecurity/internal/mssql"
 	"socialsecurity/internal/types"
+
+	"github.com/google/uuid"
 )
 
 func (r *ApplicationRepository) GetServices(ctx context.Context) ([]types.Service, error) {
@@ -14,7 +17,7 @@ func (r *ApplicationRepository) GetServices(ctx context.Context) ([]types.Servic
             service_name, 
             description, 
             provider 
-        FROM service`
+        FROM Service`
 
 	// Create a slice to store the services
 	var services []types.Service
@@ -32,6 +35,14 @@ func (r *ApplicationRepository) GetServices(ctx context.Context) ([]types.Servic
 		if err := rows.Scan(&service.ServiceID, &service.Name, &service.Description, &service.Provider); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %w", err)
 		}
+
+		normUUID := utils.ReverseUUID(service.ServiceID.String())
+
+		service.ServiceID, err = uuid.Parse(normUUID)
+		if err != nil {
+			return nil, fmt.Errorf("failed to parse service ID: %w", err)
+		}
+
 		services = append(services, service)
 	}
 

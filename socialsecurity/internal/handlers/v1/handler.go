@@ -4,7 +4,6 @@ import (
 	"socialsecurity/internal/app/application"
 	"socialsecurity/internal/app/user"
 	"socialsecurity/internal/middleware"
-	"socialsecurity/internal/types"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,9 +14,7 @@ type AllServices struct {
 }
 
 type Handler struct {
-	services     AllServices
-	applications []types.Application
-	loggedInUser types.User
+	services AllServices
 }
 
 func NewAllSercivces(u *user.Service, a *application.Service) AllServices {
@@ -63,6 +60,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		apiv1.GET("/users", h.renderUsers)
 		apiv1.GET("/menu", h.renderMenu)
 		apiv1.POST("/sign-out", h.signOut)
+		apiv1.GET("/applications", h.renderListOfApplications)
 	}
 
 	return router

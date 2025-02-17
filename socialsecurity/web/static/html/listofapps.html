@@ -68,13 +68,12 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Dynamically generate rows using {{ range }} -->
                 {{ if .Applications }}
                     {{ range .Applications }}
                         <tr>
                             <td>{{ .ID }}</td>
-                            <td>{{ .Benefit }}</td>
-                            <td>{{ .Service }}</td>
+                            <td>{{ .BenefitID }}</td>
+                            <td>{{ .ServiceID }}</td>
                             <td>{{ .Status }}</td>
                             <td>{{ .Description }}</td>
                         </tr>

@@ -3,7 +3,10 @@ package mssqlApplication
 import (
 	"context"
 	"fmt"
+	utils "socialsecurity/internal/mssql"
 	"socialsecurity/internal/types"
+
+	"github.com/google/uuid"
 )
 
 func (r *ApplicationRepository) GetBenefits(ctx context.Context) ([]types.Benefit, error) {
@@ -15,7 +18,7 @@ func (r *ApplicationRepository) GetBenefits(ctx context.Context) ([]types.Benefi
             description, 
             amount,
 			frequency
-        FROM benefit`
+        FROM Benefits`
 
 	// Create a slice to store the benefits
 	var benefits []types.Benefit
@@ -30,9 +33,17 @@ func (r *ApplicationRepository) GetBenefits(ctx context.Context) ([]types.Benefi
 	// Iterate over the rows and map them to Benefit structs
 	for rows.Next() {
 		var benefit types.Benefit
-		if err := rows.Scan(&benefit.BenefitID, &benefit.Name, &benefit.Description, &benefit.Amount); err != nil {
+		if err := rows.Scan(&benefit.BenefitID, &benefit.Name, &benefit.Description, &benefit.Amount, &benefit.Frequency); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %w", err)
 		}
+
+		normUUID := utils.ReverseUUID(benefit.BenefitID.String())
+
+		benefit.BenefitID, err = uuid.Parse(normUUID)
+		if err != nil {
+			return nil, fmt.Errorf("failed to parse benefit ID: %w", err)
+		}
+
 		benefits = append(benefits, benefit)
 	}
 

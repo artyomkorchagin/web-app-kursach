@@ -16,7 +16,15 @@ func (h *Handler) renderSignUp(c *gin.Context) {
 }
 
 func (h *Handler) renderMain(c *gin.Context) {
-	if h.loggedInUser.UserID != "" {
+	emailValue := c.Request.Context().Value("email")
+
+	email, ok := emailValue.(string)
+	if !ok || email == "" {
+		email = ""
+	}
+	fmt.Println(email)
+
+	if email != "" {
 		c.Redirect(http.StatusSeeOther, "/api/v1/menu")
 	}
 	c.HTML(http.StatusOK, "index.html", nil)

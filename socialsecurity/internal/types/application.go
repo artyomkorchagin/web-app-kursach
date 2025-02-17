@@ -1,22 +1,26 @@
 package types
 
+import "github.com/google/uuid"
+
 type Application struct {
-	ID              string `json:"application_id"`
-	UserID          string `json:"user_id"`
-	BenefitID       string `json:"benefit_id"`
-	ServiceID       string `json:"service_id"`
-	Date            string `json:"application_date"`
-	Status          string `json:"status"`
-	ApprovalDate    string `json:"approval_date"`
-	RejectionReason string `json:"rejection_reason"`
-	Description     string `json:"description"`
+	ID              uuid.UUID  `json:"application_id" binding:"required,uuid"`
+	UserID          uuid.UUID  `json:"user_id" binding:"required,uuid"`
+	BenefitID       *uuid.UUID `json:"benefit_id" binding:"omitempty,uuid"`
+	ServiceID       *uuid.UUID `json:"service_id" binding:"omitempty,uuid"`
+	Date            string     `json:"application_date"`
+	Status          string     `json:"status"`
+	ApprovalDate    string     `json:"approval_date"`
+	RejectionReason string     `json:"rejection_reason"`
+	Description     string     `json:"description"`
+	BenefitName     string     `json:"-"`
+	ServiceName     string     `json:"-"`
 }
 
 type CreateApplicationRequest struct {
-	UserID      string `json:"user_id"`
-	BenefitID   string `json:"benefit_id"`
-	ServiceID   string `json:"service_id"`
-	Description string `json:"description"`
+	UserID      uuid.UUID `json:"user_id" binding:"required,uuid"`
+	BenefitID   uuid.UUID `json:"benefit_id" binding:"omitempty,uuid"`
+	ServiceID   uuid.UUID `json:"service_id" binding:"omitempty,uuid"`
+	Description string    `json:"description"`
 }
 
 type UpdateApplicationStatusRequest struct {
@@ -24,9 +28,9 @@ type UpdateApplicationStatusRequest struct {
 }
 
 type EditApplicatonRequest struct {
-	Description string `json:"description"`
-	BenefitID   string `json:"benefit_id"`
-	ServiceID   string `json:"service_id"`
+	Description string    `json:"description"`
+	BenefitID   uuid.UUID `json:"benefit_id"`
+	ServiceID   uuid.UUID `json:"service_id"`
 }
 
 const (

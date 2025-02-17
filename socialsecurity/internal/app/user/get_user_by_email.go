@@ -9,7 +9,7 @@ import (
 func (s *Service) GetUserByEmail(ctx context.Context, email string) (*types.User, error) {
 
 	if email == "" {
-		return nil, errors.New("email or password can't be empty")
+		return nil, errors.New("email can't be empty")
 	}
 
 	user, err := s.repo.GetUser(ctx, email)

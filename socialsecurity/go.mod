@@ -5,11 +5,12 @@ go 1.22.2
 require (
 	github.com/gin-gonic/gin v1.10.0
 	github.com/golang-jwt/jwt v3.2.2+incompatible
-	github.com/google/uuid v1.6.0
 	github.com/microsoft/go-mssqldb v1.8.0
 	golang.org/x/crypto v0.32.0
 	gopkg.in/yaml.v3 v3.0.1
 )
+
+require github.com/google/uuid v1.6.0
 
 require (
 	github.com/bytedance/sonic v1.12.8 // indirect

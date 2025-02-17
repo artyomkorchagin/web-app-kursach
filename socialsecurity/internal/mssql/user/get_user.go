@@ -3,8 +3,10 @@ package mssqlUser
 import (
 	"context"
 	"database/sql"
+	utils "socialsecurity/internal/mssql"
 	"socialsecurity/internal/types"
 
+	"github.com/google/uuid"
 	"github.com/pkg/errors"
 )
 
@@ -48,7 +50,11 @@ func (r *UserRepository) GetUser(ctx context.Context, email string) (*types.User
 		}
 		return nil, errors.Wrap(err, "failed to execute query")
 	}
-
+	normUUID := utils.ReverseUUID(user.UserID.String())
+	user.UserID, err = uuid.Parse(normUUID)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to parse UUID")
+	}
 	// Return the user object
 	return &user, nil
 }

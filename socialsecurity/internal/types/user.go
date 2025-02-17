@@ -1,22 +1,24 @@
 package types
 
+import "github.com/google/uuid"
+
 type User struct {
-	UserID            string `json:"user_id"`
-	FirstName         string `json:"first_name"`
-	SecondName        string `json:"second_name"`
-	MiddleName        string `json:"middle_name"`
-	DateOfBirth       string `json:"date_of_birth"`
-	Gender            string `json:"gender"`
-	Address           string `json:"address"`
-	PhoneNumber       string `json:"phone_number"`
-	Email             string `json:"email"`
-	PasswordHash      string `json:"-"`
-	SNILS             string `json:"snils"`
-	PassportSeries    string `json:"passport_series"`
-	PassportNumber    string `json:"passport_number"`
-	PassportIssuedBy  string `json:"passport_issued_by"`
-	PassportIssueDate string `json:"passport_issue_date"`
-	Role              string `json:"role"`
+	UserID            uuid.UUID `json:"user_id"`
+	FirstName         string    `json:"first_name"`
+	SecondName        string    `json:"second_name"`
+	MiddleName        string    `json:"middle_name"`
+	DateOfBirth       string    `json:"date_of_birth"`
+	Gender            string    `json:"gender"`
+	Address           string    `json:"address"`
+	PhoneNumber       string    `json:"phone_number"`
+	Email             string    `json:"email"`
+	PasswordHash      string    `json:"-"`
+	SNILS             string    `json:"snils"`
+	PassportSeries    string    `json:"passport_series"`
+	PassportNumber    string    `json:"passport_number"`
+	PassportIssuedBy  string    `json:"passport_issued_by"`
+	PassportIssueDate string    `json:"passport_issue_date"`
+	Role              string    `json:"role"`
 }
 
 type CreateUserRequest struct {

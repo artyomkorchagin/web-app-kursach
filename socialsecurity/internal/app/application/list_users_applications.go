@@ -3,9 +3,11 @@ package application
 import (
 	"context"
 	"socialsecurity/internal/types"
+
+	"github.com/google/uuid"
 )
 
-func (s Service) ListUsersApplications(ctx context.Context, user_id string) ([]*types.Application, error) {
+func (s Service) ListUsersApplications(ctx context.Context, user_id uuid.UUID) ([]*types.Application, error) {
 
 	apps, err := s.repo.ListUsersApplications(ctx, user_id)
 	if err != nil {

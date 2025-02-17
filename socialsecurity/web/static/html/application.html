@@ -9,11 +9,11 @@
 <body>
     <div class="application-container">
         <h2>Отправить Заявку</h2>
-        <form action="/api/v1/send-application" method="POST">
+        <form action="/api/v1/application-apply" method="POST">
             <!-- Benefit Selection -->
             <div class="form-group">
                 <label for="benefit_id">Пособие:</label>
-                <select id="benefit_id" name="benefit_id" required>
+                <select id="benefit_id" name="benefit_id">
                     <option value="" disabled selected>-- Выберите пособие --</option>
                     <!-- Dynamically generate benefit options -->
                     {{ if .Benefits }}
@@ -29,7 +29,7 @@
             <!-- Service Selection -->
             <div class="form-group">
                 <label for="service_id">Услуга:</label>
-                <select id="service_id" name="service_id" required>
+                <select id="service_id" name="service_id">
                     <option value="" disabled selected>-- Выберите услугу --</option>
                     <!-- Dynamically generate service options -->
                     {{ if .Services }}

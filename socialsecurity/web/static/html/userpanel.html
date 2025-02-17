@@ -15,7 +15,7 @@
     {{ if eq .Role "default" }}
         <h2>User Panel</h2>
         <button onclick="window.location.href='/api/v1/application-form'">Apply Application</button>
-        <button onclick="window.location.href='/api/v1/view-applications'">View Applications</button>
+        <button onclick="window.location.href='/api/v1/applications'">View Applications</button>
         <button onclick="window.location.href='/api/v1/profile'">Profile</button>
         <button hx-post="/api/v1/sign-out" onclick="window.location.href='/'">Logout</button>
     {{ else if eq .Role "admin" }}

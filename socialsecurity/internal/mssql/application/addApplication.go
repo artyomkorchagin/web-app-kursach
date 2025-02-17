@@ -12,7 +12,6 @@ func (r *ApplicationRepository) AddApplication(ctx context.Context, application 
 	// Define the SQL query
 	query := `
         INSERT INTO applications (
-            id, 
             user_id, 
             benefit_id, 
             service_id, 
@@ -21,9 +20,9 @@ func (r *ApplicationRepository) AddApplication(ctx context.Context, application 
             approval_date, 
             rejection_reason, 
             description
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `
-
+	fmt.Println(application.Description)
 	// Set default values for optional fields
 	if application.Date == "" {
 		application.Date = time.Now().Format("2006-01-02") // Default to current date
@@ -34,7 +33,6 @@ func (r *ApplicationRepository) AddApplication(ctx context.Context, application 
 
 	// Execute the query
 	_, err := r.db.ExecContext(ctx, query,
-		application.ID,
 		application.UserID,
 		application.BenefitID,
 		application.ServiceID,
