@@ -15,7 +15,6 @@
             height: 100vh;
             background-color: #f9f9fb;
         }
-
         .applications-container {
             width: 100%;
             max-width: 800px;
@@ -24,33 +23,35 @@
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
         h2 {
             text-align: center;
             margin-bottom: 20px;
             color: #333333;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
-
         th, td {
             padding: 10px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
-
         th {
             background-color: #f4f4f4;
             font-weight: bold;
             color: #555555;
         }
-
         tr:hover {
             background-color: #f9f9fb;
+        }
+        a {
+            color: #007BFF; /* Blue color for links */
+            text-decoration: none; /* Remove underline */
+        }
+        a:hover {
+            text-decoration: underline; /* Add underline on hover */
         }
     </style>
 </head>
@@ -72,7 +73,8 @@
                 {{ if .Applications }}
                     {{ range .Applications }}
                         <tr>
-                            <td>{{ .ID }}</td>
+                            <!-- Make the ID clickable -->
+                            <td><a href="/api/v1/applications/{{ .ID }}">{{ .ID }}</a></td>
                             <td>{{ .UserID }}</td>
                             <td>{{ .BenefitID }}</td>
                             <td>{{ .ServiceID }}</td>
@@ -82,7 +84,7 @@
                     {{ end }}
                 {{ else }}
                     <tr>
-                        <td colspan="5" style="text-align: center;">Нет заявок</td>
+                        <td colspan="6" style="text-align: center;">Нет заявок</td>
                     </tr>
                 {{ end }}
             </tbody>

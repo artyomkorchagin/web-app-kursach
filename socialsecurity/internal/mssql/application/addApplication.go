@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"socialsecurity/internal/types"
 	"time"
+
+	"github.com/google/uuid"
 )
 
 func (r *ApplicationRepository) AddApplication(ctx context.Context, application *types.Application) error {
@@ -30,12 +32,11 @@ func (r *ApplicationRepository) AddApplication(ctx context.Context, application 
 	if application.Status == "" {
 		application.Status = types.StatusPending // Default status
 	}
-
 	// Execute the query
 	_, err := r.db.ExecContext(ctx, query,
 		application.UserID,
-		application.BenefitID,
-		application.ServiceID,
+		sql.NullString{String: application.BenefitID.String(), Valid: application.BenefitID != &uuid.Nil},
+		sql.NullString{String: application.ServiceID.String(), Valid: application.ServiceID != &uuid.Nil},
 		application.Date,
 		application.Status,
 		sql.NullString{String: application.ApprovalDate, Valid: application.ApprovalDate != ""},       // Handle nullable ApprovalDate

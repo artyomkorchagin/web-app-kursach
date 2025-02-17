@@ -65,6 +65,7 @@
                     <th>Услуга</th>
                     <th>Статус</th>
                     <th>Доп. Информация</th>
+                    <th>Причина отказа</th>
                 </tr>
             </thead>
             <tbody>
@@ -76,6 +77,7 @@
                             <td>{{ .ServiceID }}</td>
                             <td>{{ .Status }}</td>
                             <td>{{ .Description }}</td>
+                            <td>{{ .RejectionReason }}</td>
                         </tr>
                     {{ end }}
                 {{ else }}

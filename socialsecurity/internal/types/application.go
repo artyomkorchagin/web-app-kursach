@@ -21,8 +21,10 @@ type CreateApplicationRequest struct {
 	Description string    `json:"description"`
 }
 
-type UpdateApplicationStatusRequest struct {
-	Status string `json:"status"`
+type WorkApplicationRequest struct {
+	ID              uuid.UUID `json:"application_id"`
+	Status          string    `json:"status"`
+	RejectionReason string    `json:"rejection_reason"`
 }
 
 type EditApplicatonRequest struct {

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
+	utils "socialsecurity/internal/mssql"
 	"socialsecurity/internal/types"
 
 	"github.com/gin-gonic/gin"
@@ -23,7 +24,7 @@ func (h *Handler) renderApplicationForm(c *gin.Context) {
 		fmt.Println("error with services", err)
 		c.AbortWithError(http.StatusInternalServerError, err)
 	}
-	c.HTML(http.StatusOK, "application.html", gin.H{
+	c.HTML(http.StatusOK, "addapplication.html", gin.H{
 		"Services": services,
 		"Benefits": benefits,
 	})
@@ -111,4 +112,67 @@ func (h *Handler) renderAllApps(c *gin.Context) {
 	c.HTML(http.StatusOK, "listofallapps.html", gin.H{
 		"Applications": pendingApps,
 	})
+}
+
+func (h *Handler) getApplicationDetails(c *gin.Context) {
+	// Extract the application ID from the URL path
+	appID := c.Param("id")
+
+	if appID == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid application ID"})
+		return
+	}
+
+	appID = utils.ReverseUUID(appID)
+
+	appUUID, err := uuid.Parse(appID)
+	if err != nil {
+		fmt.Println(err)
+		c.AbortWithError(http.StatusBadRequest, errors.New("invalid application ID"))
+		return
+	}
+	app, err := h.services.application.GetApplicationByID(c, appUUID)
+	if err != nil {
+		fmt.Println(err)
+		c.AbortWithError(http.StatusNotFound, errors.New("application not found"))
+		return
+	}
+
+	c.HTML(http.StatusOK, "adminapplication.html", gin.H{
+		"Application": app,
+	})
+}
+
+func (h *Handler) workApplication(c *gin.Context) {
+	appID := c.Param("id")
+
+	var input types.WorkApplicationRequest
+
+	if appID == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid application ID"})
+		return
+	}
+
+	input.Status = c.PostForm("status")
+	if input.Status == "rejected" {
+		input.RejectionReason = c.PostForm("rejection_reason")
+	}
+
+	appID = utils.ReverseUUID(appID)
+
+	appUUID, err := uuid.Parse(appID)
+	if err != nil {
+		fmt.Println(err)
+		c.AbortWithError(http.StatusBadRequest, errors.New("invalid application ID"))
+		return
+	}
+	input.ID = appUUID
+	err = h.services.application.WorkApplication(c, input)
+	if err != nil {
+		fmt.Println(err)
+		c.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+
+	c.JSON(http.StatusOK, input)
 }
