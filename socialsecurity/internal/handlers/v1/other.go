@@ -69,7 +69,7 @@ func (h *Handler) renderUsers(c *gin.Context) {
 		c.AbortWithStatus(http.StatusInternalServerError)
 		return
 	}
-	c.HTML(http.StatusOK, "users.html", gin.H{
+	c.HTML(http.StatusOK, "listofusers.html", gin.H{
 		"Users": users,
 	})
 }

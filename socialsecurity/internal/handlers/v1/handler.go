@@ -61,6 +61,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		apiv1.GET("/menu", h.renderMenu)
 		apiv1.POST("/sign-out", h.signOut)
 		apiv1.GET("/applications", h.renderListOfApplications)
+		apiv1.GET("/applications-review", h.renderAllApps)
 	}
 
 	return router

@@ -8,7 +8,7 @@ import (
 )
 
 type Reader interface {
-	// FindApplicationByID(ctx context.Context, id string) (*types.Application, error)
+	ListAllApplications(ctx context.Context) ([]*types.Application, error)
 	ListUsersApplications(ctx context.Context, user_id uuid.UUID) ([]*types.Application, error)
 	GetServices(ctx context.Context) ([]types.Service, error)
 	GetBenefits(ctx context.Context) ([]types.Benefit, error)

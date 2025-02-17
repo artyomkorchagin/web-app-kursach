@@ -85,7 +85,30 @@ func (h *Handler) renderListOfApplications(c *gin.Context) {
 		return
 	}
 
-	c.HTML(http.StatusOK, "listofapps.html", gin.H{
+	c.HTML(http.StatusOK, "listofuserapps.html", gin.H{
 		"Applications": apps,
+	})
+}
+
+func (h *Handler) renderAllApps(c *gin.Context) {
+	// Fetch all applications from the service layer
+	apps, err := h.services.application.ListAllApplications(c)
+	if err != nil {
+		fmt.Println(err)
+		c.Abort()
+		return
+	}
+
+	// Filter the applications to include only those with status "pending"
+	var pendingApps []types.Application // Replace `YourAppType` with the actual type of `apps`
+	for _, app := range apps {
+		if app.Status == "pending" { // Assuming `Status` is a field in your app struct
+			pendingApps = append(pendingApps, *app)
+		}
+	}
+
+	// Render the filtered list of applications
+	c.HTML(http.StatusOK, "listofallapps.html", gin.H{
+		"Applications": pendingApps,
 	})
 }

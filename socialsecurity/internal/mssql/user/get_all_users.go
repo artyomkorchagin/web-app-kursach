@@ -10,8 +10,11 @@ func (r *UserRepository) GetAllUsers(ctx context.Context) ([]types.User, error) 
 	// Define the SQL query
 	query := `
         SELECT 
-            *
-        FROM Users`
+            user_id,
+			Email
+        FROM Users
+		WHERE role = 'default'
+		`
 
 	// Create a slice to store the users
 	var users []types.User
@@ -26,7 +29,7 @@ func (r *UserRepository) GetAllUsers(ctx context.Context) ([]types.User, error) 
 	// Iterate over the rows and map them to User structs
 	for rows.Next() {
 		var user types.User
-		if err := rows.Scan(&user.UserID, &user.FirstName, &user.SecondName, &user.Email, &user.Role); err != nil {
+		if err := rows.Scan(&user.UserID, &user.Email); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %w", err)
 		}
 		users = append(users, user)
