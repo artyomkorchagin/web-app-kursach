@@ -12,8 +12,6 @@ type Application struct {
 	ApprovalDate    string     `json:"approval_date"`
 	RejectionReason string     `json:"rejection_reason"`
 	Description     string     `json:"description"`
-	BenefitName     string     `json:"-"`
-	ServiceName     string     `json:"-"`
 }
 
 type CreateApplicationRequest struct {
