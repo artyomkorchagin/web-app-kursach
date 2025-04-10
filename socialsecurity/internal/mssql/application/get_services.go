@@ -9,7 +9,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func (r *ApplicationRepository) GetServices(ctx context.Context) ([]types.Service, error) {
+func (r *mssqlApplicationRepository) GetServices(ctx context.Context) ([]types.Service, error) {
 	// Define the SQL query
 	query := `
         SELECT 

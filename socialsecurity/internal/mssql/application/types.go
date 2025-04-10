@@ -2,12 +2,12 @@ package mssqlApplication
 
 import "database/sql"
 
-type ApplicationRepository struct {
+type mssqlApplicationRepository struct {
 	db *sql.DB
 }
 
-func NewApplicationRepository(db *sql.DB) *ApplicationRepository {
-	return &ApplicationRepository{
+func NewApplicationRepository(db *sql.DB) *mssqlApplicationRepository {
+	return &mssqlApplicationRepository{
 		db: db,
 	}
 }

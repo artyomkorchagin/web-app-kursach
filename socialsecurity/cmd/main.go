@@ -29,10 +29,6 @@ func main() {
 	}
 	log.Println("Successfully connected to the database!")
 
-	// ctx, cancel := context.WithCancel(context.Background())
-
-	// defer cancel()
-
 	if err != nil {
 		log.Fatal(err)
 	}

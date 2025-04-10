@@ -9,7 +9,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func (r *ApplicationRepository) GetBenefits(ctx context.Context) ([]types.Benefit, error) {
+func (r *mssqlApplicationRepository) GetBenefits(ctx context.Context) ([]types.Benefit, error) {
 	// Define the SQL query
 	query := `
         SELECT 

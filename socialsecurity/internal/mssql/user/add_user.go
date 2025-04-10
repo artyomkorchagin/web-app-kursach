@@ -5,7 +5,7 @@ import (
 	"socialsecurity/internal/types"
 )
 
-func (r *UserRepository) AddUser(ctx context.Context, user *types.User) error {
+func (r *mssqlUserRepository) AddUser(ctx context.Context, user *types.User) error {
 	query := `
         INSERT INTO [dbo].[Users] (
             [first_name],

@@ -10,7 +10,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func (r *ApplicationRepository) WorkApplication(ctx context.Context, input types.WorkApplicationRequest) error {
+func (r *mssqlApplicationRepository) WorkApplication(ctx context.Context, input types.WorkApplicationRequest) error {
 	// Validate the input
 	if input.ID == uuid.Nil {
 		return fmt.Errorf("invalid application ID")

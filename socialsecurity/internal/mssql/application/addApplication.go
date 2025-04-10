@@ -10,7 +10,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func (r *ApplicationRepository) AddApplication(ctx context.Context, application *types.Application) error {
+func (r *mssqlApplicationRepository) AddApplication(ctx context.Context, application *types.Application) error {
 	// Define the SQL query
 	query := `
         INSERT INTO applications (

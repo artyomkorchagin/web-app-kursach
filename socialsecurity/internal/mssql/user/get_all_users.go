@@ -6,7 +6,7 @@ import (
 	"socialsecurity/internal/types"
 )
 
-func (r *UserRepository) GetAllUsers(ctx context.Context) ([]types.User, error) {
+func (r *mssqlUserRepository) GetAllUsers(ctx context.Context) ([]types.User, error) {
 	// Define the SQL query
 	query := `
         SELECT 

@@ -9,7 +9,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func (r *ApplicationRepository) GetApplicationByID(ctx context.Context, id uuid.UUID) (*types.Application, error) {
+func (r *mssqlApplicationRepository) GetApplicationByID(ctx context.Context, id uuid.UUID) (*types.Application, error) {
 	// Define the SQL query
 	query := `
         SELECT 

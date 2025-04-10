@@ -5,6 +5,6 @@ import (
 	"socialsecurity/internal/types"
 )
 
-func (r *ApplicationRepository) EditApplication(ctx context.Context, a *types.Application) error {
+func (r *mssqlApplicationRepository) EditApplication(ctx context.Context, a *types.Application) error {
 	return nil
 }

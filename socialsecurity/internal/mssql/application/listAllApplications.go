@@ -8,7 +8,7 @@ import (
 )
 
 // ListUsersApplications retrieves all applications for a given user ID.
-func (r *ApplicationRepository) ListAllApplications(ctx context.Context) ([]*types.Application, error) {
+func (r *mssqlApplicationRepository) ListAllApplications(ctx context.Context) ([]*types.Application, error) {
 	// Define the SQL query
 	query := `
         SELECT 

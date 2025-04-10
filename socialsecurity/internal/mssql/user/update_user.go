@@ -7,7 +7,7 @@ import (
 	"socialsecurity/internal/types"
 )
 
-func (r *UserRepository) UpdateUser(ctx context.Context, u *types.User) error {
+func (r *mssqlUserRepository) UpdateUser(ctx context.Context, u *types.User) error {
 	// Validate input
 	if u.Email == "" {
 		return errors.New("invalid user or user ID")
